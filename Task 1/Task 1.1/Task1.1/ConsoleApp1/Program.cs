@@ -6,8 +6,8 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            
-            
+            int[,] array2D = new int[,] { { 1, 2 }, { 3, 4 }, { 5, 6 }, { 7, 8 } };
+            Console.WriteLine( Sum2dArr(array2D));
 
         }
 
@@ -118,7 +118,7 @@ namespace ConsoleApp1
             italic = 2,
             underline = 4,
         }
-        void FontAdjusment ()
+        static void FontAdjusment()
         {
             form textform = form.None;
             while (true)
@@ -160,5 +160,82 @@ namespace ConsoleApp1
         }
         // Task 7
 
+        static int[] ArrProc(int min, int max)
+        {
+            Random Rand = new Random();
+            int[] mas = new int[20];
+            for (int i = 0; i < mas.Length; i++)
+            {
+                mas[i] = Rand.Next(min, max);
+            }
+            int buf;
+            for (int i = 0; i < mas.Length; i++)
+            {
+                for (int j = i + 1; j < mas.Length; j++)
+                {
+                    if (mas[i] > mas[j])
+                    {
+                        buf = mas[i];
+                        mas[i] = mas[j];
+                        mas[j] = buf;
+                    }
+                }
+                Console.WriteLine(mas[i]);
+            }
+
+
+
+            return mas;
+        }
+        // Task 8
+
+        static int[,,] NoPosit(int[,,] mas)
+
+        {
+            for (int i = 0; i < mas.GetLength(0); i++)
+            {
+                for (int j = 0; j < mas.GetLength(1); j++)
+                {
+                    for (int n = 0; n < mas.GetLength(2); n++)
+                    {
+                        if (mas[i, j, n] > 0)
+                            mas[i, j, n] = 0;
+                    }
+                }
+            }
+
+            return mas;
+        }
+        //task  9
+        static int NONNEGATIVESUM(int[] mas)
+        {
+            int sum=0;
+            for (int i = 0; i < mas.Length; i++)
+            {
+                if (mas[i] > 0)
+                {
+                    sum += mas[i];
+                }
+
+            }
+            return sum;
+        }
+
+        //task 10
+        static int Sum2dArr(int[,] mas)
+        {
+            int sum = 0;
+            for (int i = 1; i < mas.GetLength(0); i++)
+            {
+                for (int j = 1; j < mas.GetLength(1); j++)
+                {
+                    if ((i + j) % 2 == 0)
+                    {
+                        sum += mas[i, j];
+                    }
+                }
+            }
+            return sum;
+        }
     }
 }
