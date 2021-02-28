@@ -6,8 +6,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            int[,] array2D = new int[,] { { 1, 2 }, { 3, 4 }, { 5, 6 }, { 7, 8 } };
-            Console.WriteLine( Sum2dArr(array2D));
+
 
         }
 
