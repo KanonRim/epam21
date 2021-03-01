@@ -7,7 +7,7 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
 
-
+            Xtree(30);
         }
 
         //task 1
@@ -51,6 +51,7 @@ namespace ConsoleApp1
         static void AnotTriAngl(int n)
         {
             n += 1;
+            
             for (int i = 1; i < n; i++)
             {
                 for (int j = 1; j < n - i; j++)
@@ -70,6 +71,8 @@ namespace ConsoleApp1
         static void AnotTriAngl(int n, int max)
         {
             n += 1;
+
+            
             for (int i = 1; i < n; i++)
             {
                 for (int j = 1; j < max - i; j++)
@@ -78,11 +81,14 @@ namespace ConsoleApp1
                 }
                 for (int j = 1; j < i * 2; j++)
                 {
+                    Console.ForegroundColor = (ConsoleColor)(i*j%15+1);
                     Console.Write("*");
                 }
 
                 Console.WriteLine();
+
             }
+            Console.ResetColor();
         }
 
         static void Xtree(int n)
