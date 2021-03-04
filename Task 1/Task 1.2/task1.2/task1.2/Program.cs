@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace task1._2
 {
@@ -6,21 +7,37 @@ namespace task1._2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(Averages("Викентий хорошо отметил день рождения: покушал пиццу, посмотрел кино, пообщался со студентами в чате"));
+            Console.WriteLine( DOUBLER("написать программу, которая", "описание"));
         }
 
-        static double Averages(string str)
+        static float Averages(string str)
         {
-            
-            int divider = 0;
+            float divider = 1;
             for (int i = 0; i < str.Length; i++)
             {
-                if (Char.IsPunctuation(str[i]) || str[i]==' ')
+                if (str[i] == ' ')
                 {
                     divider++;
                 }
             }
-            return (str.Length-divider) / (divider-);
+            return (str.Length - (divider - 1)) / divider;
         }
+
+        static string DOUBLER(string str,string doubl)
+        {
+            StringBuilder newStr = new StringBuilder();
+            newStr.Append(str);
+            
+            for (int i = 0; i < newStr.Length; i++)
+            {
+                if(doubl.IndexOf (newStr[i]) != -1)
+                {
+                    newStr.Insert(i + 1, newStr[i]);
+                    i++;
+                }
+            }
+            return newStr.ToString();
+        }
+
     }
 }
