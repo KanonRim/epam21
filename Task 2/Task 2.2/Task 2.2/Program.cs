@@ -107,7 +107,7 @@ namespace Task_2._2
         int _points;
         Player(int x, int y ):base(x,y,'Т',100)
         {
-
+            
         }
 
         public int Points { get => _points; set => _points = value; }
@@ -119,7 +119,7 @@ namespace Task_2._2
         {
 
         }
-       public abstract void Collect();
+       
     }
     class Point : Bonus
     {
@@ -130,8 +130,9 @@ namespace Task_2._2
         }
 
 
-        public override void Collect(Player player)
+        public void Collect(Player player)
         {
+            if(player.X == X && player.Y== Y)
             player.Points += points;
         }
     }
@@ -140,7 +141,7 @@ namespace Task_2._2
     {
         Gameobj[,,] _obj;
 
-        Gameobj  GetObj(int x,int y, int layer)
+        public Gameobj  GetObj(int x,int y, int layer)
         {
             return _obj[x, y, layer];
         }
