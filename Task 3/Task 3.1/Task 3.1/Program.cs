@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Task_2._1;
 
 namespace Task_3._1
@@ -9,56 +7,24 @@ namespace Task_3._1
     {
         static void Main(string[] args)
         {
-            
             int n = ConsoleHelper.IntReadParse("Введите N", 1, int.MaxValue);
-            char[] person = GeneratorNumberChar(n);
-            Console.WriteLine("Сгенерирован круг людей. Начинаем вычеркивать каждого второго.");
-            int round = 0;
-            for (int i = 1; person.Length >= 2;)
+            MyClosedCollection<char> person = new MyClosedCollection<char>();
+            for (int i = 0; i < n; i++)
             {
-
-                person = Remove(person, i);
-                i += 1;
-                if (i >= person.Length)
-                    i -= person.Length;
-                round++;
-                Console.WriteLine($"Раунд {round}. Вычеркнут человек. Людей осталось: {person.Length}");
-                Console.WriteLine(new String(person));
+                person.Add(Convert.ToChar((i + 1).ToString()));
             }
-            Console.WriteLine("Игра окончена. Невозможно вычеркнуть больше людей.");
 
-        }
-
-        static char[] GeneratorNumberChar(int max)
-        {
-            char[] c = new char[max];
-            for (int i = 0; i < max; i++)
+            var ie = person.GetEnumerator();
+            while (person.Length>=2)
             {
-                c[i] = Convert.ToChar((i+1).ToString()); ;
+                ie.MoveNext();
+                ie.MoveNext();
+                person.Remove( ie.Current);
+                Console.WriteLine(new string (person.Mas));
+
             }
-            return c;
-
+            
+            Console.WriteLine();
         }
-        static char[] Remove(char[] oldChar,int remove)
-        {
-            if (remove > oldChar.Length)
-            throw new IndexOutOfRangeException("remove > oldChar.Length");
-            char[] newChar = new char[oldChar.Length-1];
-            for (int i = 0; i < newChar.Length; i++)
-            {
-                if(i<remove)
-                {
-                    newChar[i] = oldChar[i];
-                }
-                else
-                {
-                    newChar[i] = oldChar[i+1];
-                }
-            } 
-            return newChar;
-        }
-
     }
-
-  
 }
