@@ -8,23 +8,35 @@ namespace Task_3._1
         static void Main(string[] args)
         {
             int n = ConsoleHelper.IntReadParse("Введите N", 1, int.MaxValue);
-            MyClosedCollection<char> person = new MyClosedCollection<char>();
+            int round = 1;
+            MyClosedCollection<String> person = new MyClosedCollection<String>();
             for (int i = 0; i < n; i++)
             {
-                person.Add(Convert.ToChar((i + 1).ToString()));
+                person.Add(((i + 1).ToString()));
             }
 
-            var ie = person.GetEnumerator();
+            Console.WriteLine((String.Join(' ',person.Mas)));
+
+            int following = round * 2;
             while (person.Length>=2)
             {
-                ie.MoveNext();
-                ie.MoveNext();
-                person.Remove( ie.Current);
-                Console.WriteLine(new string (person.Mas));
 
+                var ie = person.GetEnumerator();
+                for (int i = 0; i < following; i++)
+                {
+                    ie.MoveNext();
+                }
+                person.Remove(ie.Current);
+                following = round*2+round;
+                round++;
+
+
+
+                Console.WriteLine((String.Join(' ', person.Mas)));
             }
-            
             Console.WriteLine();
         }
+
+
     }
 }

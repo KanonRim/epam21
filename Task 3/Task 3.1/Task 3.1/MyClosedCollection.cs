@@ -41,7 +41,7 @@ namespace Task_3._1
 
         public IEnumerator<T> GetEnumerator()
         {
-            return new MySuperCollectionEnumerator<T>(Mas);
+            return new MySuperCollectionEnumerator<T>(ref _mas);
             //return _person.GetEnumerator();
         }
 
@@ -57,7 +57,7 @@ namespace Task_3._1
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return new MySuperCollectionEnumerator<T>(Mas);
+            return new MySuperCollectionEnumerator<T>(ref _mas);
             //return _person.GetEnumerator();
         }
 
@@ -65,7 +65,7 @@ namespace Task_3._1
         {
             int position = -1;
             T[] _mas;
-            public MySuperCollectionEnumerator(T[] mas)
+            public MySuperCollectionEnumerator(ref T[] mas)
             {
                 _mas = mas;
             }
@@ -96,15 +96,7 @@ namespace Task_3._1
                 // TODO: реализовать интерфейс IDisposable
             }
 
-            public bool MoveNext(int next = 1)
-            {
-                position+=next;
-                if (position > _mas.Length)
-                {
-                    position -= _mas.Length;
-                }
-                return true;
-            }
+ 
 
             public bool MoveNext()
             {
@@ -113,6 +105,7 @@ namespace Task_3._1
                 {
                     position -= _mas.Length;
                 }
+
                 return true;
             }
 
