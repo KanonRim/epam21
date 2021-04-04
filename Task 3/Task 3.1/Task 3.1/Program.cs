@@ -11,39 +11,38 @@ namespace Task_3._1
         {
 
             int n = ConsoleHelper.IntReadParse("Введите N", 1, int.MaxValue);
-            char[] person = GeneratorNumberChar(n);
+            string[] person = GeneratorNumberChar(n);
             Console.WriteLine("Сгенерирован круг людей. Начинаем вычеркивать каждого второго.");
             int round = 0;
             for (int i = 1; person.Length >= 2;)
             {
-
                 person = Remove(person, i);
                 i += 1;
                 if (i >= person.Length)
                     i -= person.Length;
                 round++;
                 Console.WriteLine($"Раунд {round}. Вычеркнут человек. Людей осталось: {person.Length}");
-                Console.WriteLine(new String(person));
+                Console.WriteLine(string.Join( ' ',person));
             }
             Console.WriteLine("Игра окончена. Невозможно вычеркнуть больше людей.");
 
         }
 
-        static char[] GeneratorNumberChar(int max)
+        static string[] GeneratorNumberChar(int max)
         {
-            char[] c = new char[max];
+            string[] c = new string[max];
             for (int i = 0; i < max; i++)
             {
-                c[i] = Convert.ToChar((i + 1).ToString()); ;
+                c[i]= Convert.ToString(i+1);
             }
             return c;
 
         }
-        static char[] Remove(char[] oldChar, int remove)
+        static string[] Remove(string[] oldChar, int remove)
         {
             if (remove > oldChar.Length)
                 throw new IndexOutOfRangeException("remove > oldChar.Length");
-            char[] newChar = new char[oldChar.Length - 1];
+            string[] newChar = new string[oldChar.Length - 1];
             for (int i = 0; i < newChar.Length; i++)
             {
                 if (i < remove)
