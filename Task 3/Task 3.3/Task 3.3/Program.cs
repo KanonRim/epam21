@@ -6,18 +6,24 @@ namespace Task_3._3
     {
         static void Main(string[] args)
         {
-            
+            //testig code 
             Pizzeria PapaKarlo = new Pizzeria();
-
+            
             do
             {
-
-                User user = new User(PapaKarlo, "Woloda");
+                Console.WriteLine("Ведите имя");
+                var userName = Console.ReadLine();
+                User user = new User(PapaKarlo, userName);
                 do
                 {
                     Console.WriteLine("Ведите пиццу");
                     var pizza = Console.ReadLine();
-                    user.MakeOrder(new Pizza("Mega", 9000));
+                    if (pizza.Length < 1)
+                        continue;
+                    int timeCocing = new Random().Next(1000, 9000);
+                    Console.WriteLine("ваша пица будет готовиться "+timeCocing/1000+"секунд");
+                    user.MakeOrder(new Pizza(pizza, timeCocing));
+                    break;
                 } while (true);
 
             } while (true);
