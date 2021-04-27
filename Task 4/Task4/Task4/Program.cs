@@ -34,7 +34,7 @@ namespace Task4
             
             if (InterfaceProgram.mode == Mode.RollbackChanges)
             {
-                DateTime dateTime = ConsoleHelper.DateReadParse();
+                DateTime dateTime = ConsoleHelper.DateReadParse("Введите дату ГГГГ-ММ-ДД ЧЧ:ММ СС");
                 foreach (var item in loger.LogersFile)
                 {
                     item.RollingBackChanges(dateTime);

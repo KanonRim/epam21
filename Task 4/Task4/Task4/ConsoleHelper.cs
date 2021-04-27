@@ -18,11 +18,11 @@ namespace Task4
             } while (!parse || !range);
             return data;
         }
-        static public DateTime DateReadParse()
+        static public DateTime DateReadParse(string message)
         {
             DateTime dateTime;
             do
-            Console.WriteLine("Введите дату yyyy-dd-MM hh:mm ss");
+            Console.WriteLine(message);
             while (!DateTime.TryParse(Console.ReadLine(), out dateTime));
             return dateTime;
         }
