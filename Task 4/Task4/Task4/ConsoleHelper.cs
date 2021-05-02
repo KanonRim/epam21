@@ -27,8 +27,18 @@ namespace Task4
             while (!DateTime.TryParse(Console.ReadLine(), out dateTime));
             return dateTime;
         }
-
-
+      
+        static public string DirectoryReadParse(string message)
+        {          
+            string directory;
+            do
+            {
+                Console.WriteLine(message);
+                directory = Console.ReadLine();
+            }
+            while (!Directory.Exists(directory));
+            return Path.GetFullPath( directory);
+        }
     }
 
 }

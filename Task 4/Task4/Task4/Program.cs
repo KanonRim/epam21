@@ -12,9 +12,10 @@ namespace Task4
         static LogerFolder loger;
         static bool looup = true;
         static void Main(string[] args)
-        {            
-            string _workingFolder = @"G:\folder\";
-            string _changesFileFolder = @"G:\folder\ChangesFileFolder\";
+        {
+            string _workingFolder = ConsoleHelper.DirectoryReadParse("Введите путь папки");
+           
+            string _changesFileFolder = Path.Combine(_workingFolder, @"ChangesFileFolder");
             loger = new LogerFolder(_workingFolder, _changesFileFolder);
 
             InterfaceProgram.Preview(args);
@@ -30,8 +31,6 @@ namespace Task4
                 Console.ReadKey();
                 looup = false;
                 loger.StopSupervision();
-
-
             }
             
             if (InterfaceProgram.mode == Mode.RollbackChanges)

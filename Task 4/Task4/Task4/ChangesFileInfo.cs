@@ -76,9 +76,8 @@ namespace Task4
 
 
             using StreamWriter swNewFileChange =
-                File.CreateText(pathNewFileChanges +
-                TimeChanges.ToString("yyyyMMddhhmmss") +
-                Path.GetFileName(PathOriginalFile) + @".ChangesFile");
+                File.CreateText(Path.Combine(pathNewFileChanges,
+                TimeChanges.ToString("yyyyMMddhhmmss")+Path.GetFileName(PathOriginalFile) + @".ChangesFile"));
             swNewFileChange.Write(JsonSerializer.Serialize<ChangesFileInfo>(this));
         }
 
