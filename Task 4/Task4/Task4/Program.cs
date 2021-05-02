@@ -10,7 +10,7 @@ namespace Task4
     class Program
     {
         static LogerFolder loger;
-        static bool looup;
+        static bool looup = true;
         static void Main(string[] args)
         {            
             string _workingFolder = @"G:\folder\";
@@ -24,11 +24,13 @@ namespace Task4
             {                
                 Thread myThread = new Thread(new ThreadStart(UpdateUpdateSupervision));
                 myThread.Start();
+
                 Console.WriteLine("Нажмите любую клавишу чтобы закончить");
+  
                 Console.ReadKey();
                 looup = false;
-                
                 loger.StopSupervision();
+
 
             }
             

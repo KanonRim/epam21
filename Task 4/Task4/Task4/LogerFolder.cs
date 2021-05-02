@@ -38,7 +38,7 @@ namespace Task4
 
         public void StartSupervision()
         {
-            String[] pathsFiles = Directory.GetFiles(WorkingFolder,"*.txt");
+            String[] pathsFiles = Directory.GetFiles(WorkingFolder,"*.txt", SearchOption.AllDirectories);
             foreach (var item in pathsFiles)
             {
                 using StreamReader ChangFile = File.OpenText(item);
@@ -67,6 +67,7 @@ namespace Task4
         }
         public void UpdateSupervision()
         {
+            StartSupervision();
             foreach (var item in logersFile)
             {
                 item.Update();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Task4
 {
@@ -26,6 +27,8 @@ namespace Task4
             while (!DateTime.TryParse(Console.ReadLine(), out dateTime));
             return dateTime;
         }
+
+
     }
 
 }

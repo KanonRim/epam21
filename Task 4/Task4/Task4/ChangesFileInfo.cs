@@ -63,7 +63,8 @@ namespace Task4
 
                 PathChangesFile = pathNewFileChanges + @"/backup/" +
                     TimeChanges.ToString("yyyyMMddhhmmss") +
-                        Path.GetFileName(PathOriginalFile);
+                        Path.GetFileName(PathOriginalFile)+
+                        ".backup";
 
                 using StreamWriter swChanges = File.CreateText(PathChangesFile);
                 swChanges.Write(Changes);
