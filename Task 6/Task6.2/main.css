@@ -1,0 +1,33 @@
+body {
+    font-family: 'Roboto Slab', serif;
+    font-size: 12pt;
+}
+
+.registration {
+    background-color: cornflowerblue;
+    color: cornsilk;
+    width: 400px;
+    box-sizing: content-box;
+}
+
+.registration  .button-registration {
+    background-color: gold;
+    width: 100px;
+}
+
+.block-registration {
+    padding-bottom: 10px;
+}
+
+.block-registration>div {
+    display: inline-block;
+    
+}
+.block-registration>div> input {
+    display: inline-block;
+    width: 180px;
+    
+}
+.block-registration > input{
+width: 370px;
+}

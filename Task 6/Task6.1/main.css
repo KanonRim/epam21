@@ -1,0 +1,22 @@
+body {
+    font-family: 'Roboto Slab', serif;
+    font-size: 12pt;
+}
+
+.menu {
+    width: 200px;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    background-color: burlywood;
+    color: saddlebrown;
+    box-sizing: border-box;
+    display: inline-block;
+    box-shadow: 5px 5px 0 2px saddlebrown;
+    border-radius: 5px;
+}
+
+.menu>li {
+    padding-top: 10px;
+}
+
