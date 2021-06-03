@@ -1,0 +1,47 @@
+body {
+    font-family: 'Roboto Slab', serif;
+    font-size: 12pt;
+
+}
+
+.block{
+    margin: auto;
+  
+    background-color: cornflowerblue;
+    border: 5px solid cyan;
+    color: white;
+    display: table;
+    position: relative;
+    text-align: center;
+    height: 50px;
+      width: 80%;
+    top: 123px;
+  }
+  
+.triangl {
+    border-color: transparent transparent cornflowerblue;
+    border-style: dashed dashed solid;
+    border-width: 0 20px 20px;
+width: 0px;
+height: 0px;
+margin: auto;
+position: absolute;
+top: -40%; left: 0;  right: 0;
+
+
+}
+.triangl-border{
+    border-color: transparent transparent cyan;
+    border-style: dashed dashed solid;
+    border-width: 0 25px 25px;
+width: 0px;
+height: 0px;
+margin: auto;
+position: absolute;
+top: -55%; left: 0;  right: 0;
+
+
+}
+
+
+
