@@ -1,7 +1,6 @@
 String.prototype.MySplit = function (separator) {
 
     let splitText = [];
-
     let text = this;
     splitText = text.split(separator[0]);
     for (let index = 0; index < splitText.length; index++) {
@@ -12,7 +11,6 @@ String.prototype.MySplit = function (separator) {
                 if (buf[bufIdex] != '')
                     splitText.splice(index + bufIdex, 1, buf[bufIdex]);
             }
-
         }
     }
     return splitText;
@@ -21,8 +19,6 @@ String.prototype.MySplit = function (separator) {
 
 function DublerRemover(text) {
     let separator = "?!:;,.     ".slice();
-
-
     let word = text.MySplit(separator);
     let charMasDubler = [];
     for (let index = 0; index < word.length; index++) {
@@ -47,7 +43,6 @@ function RemoverCharMas(text, char) {
 
     for (let index = 0; index < char.length; index++) {
         text = text.split(char[index]).join('');
-
     }
     return text;
 }

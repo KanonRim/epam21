@@ -27,10 +27,13 @@ function calculator(str) {
                 result *= number[index + 1];
                 break;
             case "/":
-                if (result == 0) {
-                    console.error("Division by zero")
+                if (!number[index + 1]) {
+                    console.error("Division by zero or NaN");
+                    result = Infinity;
                 }
-                result /= number[index + 1];
+                else {
+                    result /= number[index + 1];
+                }
                 break;
             default:
                 console.error("Error: unknown operation")

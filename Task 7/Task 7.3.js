@@ -12,7 +12,6 @@ class Service {
         else {
             console.error("obj is not Object");
         }
-
     }
 
     getById(id) {
@@ -25,9 +24,10 @@ class Service {
 
     }
 
-    getAll() {
+    getAll() {      
         return new Map(this.vocabulary);
     }
+
     deleteById(id) {
         if (this.vocabulary.has(id)) {
             let obj = this.vocabulary.get(id);
@@ -47,15 +47,12 @@ class Service {
                 console.error("obj is not Object")
             }
         }
-
-
     }
-    
+
     replaceById(id, obj) {
         if (this.getById(id)) {
             this.vocabulary.set(id, obj);
         }
-
     }
 
 }
@@ -63,7 +60,7 @@ var storage = new Service();
 
 storage.add({ name: "roma", age: 25 });
 
-storage.updateById('', { name: "egor" });
+storage.updateById('0', { name: "egor" });
 
 console.log(storage.getById(0));
 
