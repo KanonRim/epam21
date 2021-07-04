@@ -1,0 +1,17 @@
+﻿@using EPAM.AWARDS.ASPPL.Models
+@using System.Globalization;
+@{
+    Layout = null;
+    if (IsPost)
+    {
+        string name= Request["name"];
+        DateTime date;
+        if (DateTime.TryParse(Request["date"],out date))
+        {
+            BaseModels.bll.CreateUser(name, date);
+        }
+
+
+    }
+    Response.Redirect("~/Index.cshtml");
+}

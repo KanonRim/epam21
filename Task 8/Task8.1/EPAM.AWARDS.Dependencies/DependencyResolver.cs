@@ -12,7 +12,16 @@ namespace EPAM.AWARDS.Dependencies
         #region SINGLETONE
 
         private static DependencyResolver _instance;
-        public static DependencyResolver Instance => _instance ??= new DependencyResolver();
+        public static DependencyResolver Instance
+        {
+            get
+            {
+                if (_instance == null) 
+                    return _instance = new DependencyResolver();
+                else
+                return _instance;
+            }
+        }
 
         #endregion
 

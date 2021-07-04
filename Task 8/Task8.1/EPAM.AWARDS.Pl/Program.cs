@@ -1,9 +1,10 @@
 ﻿using EPAM.AWARDS.ConsolePl;
 using EPAM.AWARDS.Dependencies;
 using EPAM.AWARDS.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Linq;
-using System.Text.Json;
+//using System.Text.Json;
 
 namespace EPAM.AWARDS.Pl
 {
@@ -60,7 +61,7 @@ namespace EPAM.AWARDS.Pl
                         User user = bll.GetUser(a);
                         if (user!=null)
                             Console.WriteLine(user);
-                            Console.WriteLine(string.Join(Environment.NewLine, JsonSerializer.Serialize( user.Awards)));
+                            Console.WriteLine(string.Join(Environment.NewLine, JsonConvert.SerializeObject( user.Awards)));
                         break;
                     case 6:
                         foreach (var item in bll.GetAwards())

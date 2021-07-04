@@ -11,16 +11,28 @@ namespace EPAM.AWARDS.BLL.Interfaces
     {
         User AddAwardToUser(int idUser, int idAward);
         User AddAwardToUser(int idUser, string awardTitle);
+     
+
         Award CreateAward(Award Award);
         Award CreateAward(string awardTitle);
-        User CreateUser(string name,DateTime date);
-        bool DeleteUser(int id);
-        bool DeleteUser(User user);
         Award GetAward(int id);
         IEnumerable<Award> GetAwards();
-        IEnumerable<Award> GetAwardsOfUser(int id);
+        bool DeleteAward(int idAward);
+
+        User CreateUser(string name,DateTime date);
         User GetUser(int id);
+        User UpdateUser(User user);
+
         IEnumerable<User> GetUsers();
+        IEnumerable<Award> GetAwardsOfUser(int id);
+
+        bool DeleteUser(int id);
+        bool DeleteUser(User user);
+        
+
+
+
+
 
     }
 }

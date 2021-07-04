@@ -34,7 +34,8 @@ namespace EPAM.AWARDS.BLL
                     award = item;
             }
 
-            award ??= CreateAward(awardTitle);
+            if(award==null)
+                CreateAward(awardTitle);
 
             User user = GetUser(idUser);
             user.Awards.Add(award);
@@ -56,7 +57,10 @@ namespace EPAM.AWARDS.BLL
         {
             return _dao.CreateUser(name, DateOfBirth);
         }
-
+        public User UpdateUser(User user)
+        {
+            return _dao.UpdateUser(user);
+        }
         public bool DeleteUser(int id)
         {
             return _dao.DeleteUser(id);
@@ -91,5 +95,18 @@ namespace EPAM.AWARDS.BLL
         {
             return _dao.GetUsers(true);
         }
+
+        public bool DeleteAward(int idAward)
+        {
+            Award award =  GetAward(idAward);
+            foreach (var item in GetUsers())
+            {                
+                item.Awards.RemoveAll(a =>a?.Id==award.Id);
+                _dao.UpdateUser(item);
+            }
+           return _dao.DeleteAward(idAward);
+        }
+
+
     }
 }

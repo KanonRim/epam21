@@ -1,9 +1,10 @@
 ﻿using EPAM.AWARDS.DAL.Interfaces;
 using EPAM.AWARDS.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
+//using System.Text.Json;
 
 namespace EPAM.AWARDS.DAL
 {
@@ -31,8 +32,11 @@ namespace EPAM.AWARDS.DAL
                 id++;
             } while (GetAward(id) != null);
             Award award = new Award(id,title);
-            using StreamWriter sr = File.CreateText(GetFilePathByIdAward(id));
-            sr.WriteLine(JsonSerializer.Serialize(award));
+            using (StreamWriter sr = File.CreateText(GetFilePathByIdAward(id)))
+            {
+                sr.WriteLine(JsonConvert.SerializeObject(award));
+            };
+            
 
             return new Award(id, title);
         }
@@ -54,8 +58,10 @@ namespace EPAM.AWARDS.DAL
             string path = GetFilePathByIdAward(id);
             if (!File.Exists(path))
                 return null;
-            using StreamReader sr = File.OpenText(path);
-            return JsonSerializer.Deserialize<Award>(sr.ReadToEnd());
+            using (StreamReader sr = File.OpenText(path))
+            {
+                return JsonConvert.DeserializeObject<Award>(sr.ReadToEnd());
+            }
         }
 
         public IEnumerable<Award> GetAwards(bool orderedById)
@@ -65,8 +71,10 @@ namespace EPAM.AWARDS.DAL
 
             for (int i = 0; i < patchs.Length; i++)
             {
-                using StreamReader sr = File.OpenText(patchs[i]);
-                awards[i] = JsonSerializer.Deserialize<Award>(sr.ReadToEnd());
+                using (StreamReader sr = File.OpenText(patchs[i]))
+                {
+                    awards[i] = JsonConvert.DeserializeObject<Award>(sr.ReadToEnd());
+                }
             }
             return awards;
 
@@ -93,8 +101,8 @@ namespace EPAM.AWARDS.DAL
             string path = GetFilePathByIdUser(id);
             if (!File.Exists(path))
                 return null;
-            using StreamReader sr = File.OpenText(path);
-            return JsonSerializer.Deserialize<User>(sr.ReadToEnd());
+            using (StreamReader sr = File.OpenText(path))
+                return JsonConvert.DeserializeObject<User>(sr.ReadToEnd());
         }
 
         public IEnumerable<User> GetUsers(bool orderedById)
@@ -106,8 +114,8 @@ namespace EPAM.AWARDS.DAL
 
             for (int i = 0; i < patchs.Length; i++)
             {
-                using StreamReader sr = File.OpenText(patchs[i]);
-                users[i] = JsonSerializer.Deserialize<User>(sr.ReadToEnd());
+                using (StreamReader sr = File.OpenText(patchs[i]))
+                    users[i] = JsonConvert.DeserializeObject<User>(sr.ReadToEnd());
             }
             return users;
         }
@@ -120,8 +128,8 @@ namespace EPAM.AWARDS.DAL
                 id++;
             } while (GetUser(id) != null);
             User user = new User(id, name, dateOfBirth);
-            using StreamWriter sr = File.CreateText(GetFilePathByIdUser(id));
-            sr.WriteLine(JsonSerializer.Serialize(user));
+            using (StreamWriter sr = File.CreateText(GetFilePathByIdUser(id)))
+                sr.WriteLine(JsonConvert.SerializeObject(user));
 
             return user;
         }
@@ -130,7 +138,7 @@ namespace EPAM.AWARDS.DAL
         {
             string path = GetFilePathByIdUser(user.Id);
             if (File.Exists(path))
-                File.WriteAllText(path, JsonSerializer.Serialize(user));
+                File.WriteAllText(path, JsonConvert.SerializeObject(user));
             else
                 throw new ArgumentException(nameof(user), "User not registered in the database,use CreateUser");
             return user;

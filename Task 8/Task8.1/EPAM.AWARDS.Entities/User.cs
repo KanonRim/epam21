@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+
 
 namespace EPAM.AWARDS.Entities
 {
@@ -17,14 +16,11 @@ namespace EPAM.AWARDS.Entities
 
 
         public User(int id, string name, DateTime dateOfBirth)
-        {           
+        {
             Id = id;
             Name = name;
-            DateOfBirth = dateOfBirth;            
+            DateOfBirth = dateOfBirth;
         }
-
-       
-
 
         public int Id { get; set; }
         public string Name
@@ -37,18 +33,17 @@ namespace EPAM.AWARDS.Entities
                 else
                     throw new ArgumentException(nameof(name), "cannot be empty.");
             }
-        }
+        }     
 
-        private DateTime dateOfBirth;
-
-        [JsonIgnore]
-        public TimeSpan Age { 
+        public TimeSpan Age
+        {
             get
             {
-               return DateTime.Now - DateOfBirth;
+                return DateTime.Now - DateOfBirth;
             }
         }
 
+        private DateTime dateOfBirth;
         public DateTime DateOfBirth
         {
             get => dateOfBirth;
@@ -61,9 +56,29 @@ namespace EPAM.AWARDS.Entities
             }
         }
 
+        bool HasAward(Award award)
+        {
+            return this.Awards.Find(a => a?.Id == award.Id)!=null;
+        }
+
+       public static User HasAward(IEnumerable<User> users,Award award)
+        {
+            if(users== null)
+            {
+                return null;
+            }
+            foreach (var item in users)
+            {
+                if (item.HasAward(award))
+                {
+                    return item;
+                }      
+            }
+            return null;
+        }
         public override string ToString()
         {
-            return Id +" "+ Name + " " + DateOfBirth.Year+ Environment.NewLine+ JsonSerializer.Serialize(Awards);
+            return Id + " " + Name + " " + DateOfBirth.Year + Environment.NewLine + string.Join(Environment.NewLine + " ", Awards);
         }
     }
 }

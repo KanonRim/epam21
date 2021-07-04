@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Управление общими сведениями о сборке осуществляется с помощью 
 // набора атрибутов. Измените значения этих атрибутов для изменения сведений,
 // связанных с этой сборкой.
-[assembly: AssemblyTitle("EPAM.AWARDS.Web_Pl")]
+[assembly: AssemblyTitle("EPAM.AWARDS.ASPPL")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("EPAM.AWARDS.Web_Pl")]
+[assembly: AssemblyProduct("EPAM.AWARDS.ASPPL")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов typelib, если этот проект видим для COM
-[assembly: Guid("e2598770-652b-455d-bead-b1f826d74386")]
+[assembly: Guid("6800aac4-71b4-472c-9d2c-9c0246677592")]
 
 // Сведения о версии сборки состоят из указанных ниже четырех значений:
 //
