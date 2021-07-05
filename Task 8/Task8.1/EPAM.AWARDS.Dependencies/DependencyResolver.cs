@@ -2,7 +2,6 @@
 using EPAM.AWARDS.BLL.Interfaces;
 using EPAM.AWARDS.DAL;
 using EPAM.AWARDS.DAL.Interfaces;
-
 using System;
 
 namespace EPAM.AWARDS.Dependencies
@@ -25,9 +24,10 @@ namespace EPAM.AWARDS.Dependencies
 
         #endregion
 
-        public IAwardsDAO DAO => new JsonDAO();
+        public IAwardsDAO DAO => new SQLDAO();
 
         public IAwardsBll Logic => new AwardsLogic(DAO);
+        public IAutchModel AutchModel => new BLL.AutchModel(Logic, DAO);
 
     }
 }

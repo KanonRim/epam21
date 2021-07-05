@@ -9,7 +9,7 @@
 
         if (int.TryParse(Request["idUser"],out idUser)&& int.TryParse(Request["idAward"], out idAward))
         {
-            BaseModels.bll.AddAwardToUser(idUser, idAward);
+            BaseModel.bll.AddAwardToUser(idUser, idAward);
         }
     }
     Response.Redirect("~/Index.cshtml");

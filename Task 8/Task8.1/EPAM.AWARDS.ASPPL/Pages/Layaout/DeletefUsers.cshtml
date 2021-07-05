@@ -1,5 +1,4 @@
 ﻿@using EPAM.AWARDS.ASPPL.Models
-
 @{
     Layout = null;
 }
@@ -9,7 +8,7 @@
     int idUser;
     if (int.TryParse(Request["idUser"], out idUser))
     {
-        BaseModels.bll.DeleteUser(idUser);
+        BaseModel.bll.DeleteUser(idUser);
 
     }
     Response.Redirect("~/Index.cshtml");

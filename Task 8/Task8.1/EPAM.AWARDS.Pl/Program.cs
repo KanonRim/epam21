@@ -38,8 +38,10 @@ namespace EPAM.AWARDS.Pl
                     case 2:
                         Console.WriteLine("Ведите имя");
                         string name =  Console.ReadLine();
-                        DateTime date = ConsoleHelper.DateReadParse("ВВедите дату рождения");                        
-                        bll.CreateUser(name, date);
+                        DateTime date = ConsoleHelper.DateReadParse("ВВедите дату рождения");
+                        Console.WriteLine("Ведите пароль");
+                        string pass= Console.ReadLine();
+                        bll.CreateUser(name, date,DependencyResolver.Instance.AutchModel.HashPassword (pass));
                         break;
                     case 3:
                         Console.WriteLine("Ведите подпись награды");

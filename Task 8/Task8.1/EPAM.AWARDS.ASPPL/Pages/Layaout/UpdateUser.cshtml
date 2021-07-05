@@ -18,15 +18,12 @@
             int idUser;
             if (int.TryParse(Request["idUser"], out idUser))
             {
-
-
-                User user = BaseModels.bll.GetUser(idUser);
+                User user = BaseModel.bll.GetUser(idUser);
                 user.Name = name;
-                BaseModels.bll.UpdateUser(user);
+                BaseModel.bll.UpdateUser(user);
                 Response.Redirect("~/Index.cshtml");
             }
         }
-
     }
     else
     {

@@ -8,10 +8,10 @@
     int idAward;
     if (int.TryParse(Request["idAward"], out idAward))
     {
-        Award award = BaseModels.bll.GetAward(idAward);
+        Award award = BaseModel.bll.GetAward(idAward);
         if (award != null)
         {
-            bool userHasAward = EPAM.AWARDS.Entities.User.HasAward(BaseModels.bll.GetUsers(), award) != null;
+            bool userHasAward = EPAM.AWARDS.Entities.User.HasAward(BaseModel.bll.GetUsers(), award) != null;
             if (userHasAward)
             {
                 <form action="~/Pages/Layaout/DeleteAwardOfUsers" method="post">
@@ -31,7 +31,7 @@
 
             else
             {
-                BaseModels.bll.DeleteAward(idAward);
+                BaseModel.bll.DeleteAward(idAward);
                 Response.Redirect("~/Index");
             }
         }

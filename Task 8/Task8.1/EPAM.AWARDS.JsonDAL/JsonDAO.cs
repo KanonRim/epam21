@@ -120,14 +120,14 @@ namespace EPAM.AWARDS.DAL
             return users;
         }
 
-        public User CreateUser(string name, DateTime dateOfBirth)
+        public User CreateUser(string name, DateTime dateOfBirth,string passHash)
         {
             int id = 0;
             do
             {
                 id++;
             } while (GetUser(id) != null);
-            User user = new User(id, name, dateOfBirth);
+            User user = new User(id, name, dateOfBirth,passHash);
             using (StreamWriter sr = File.CreateText(GetFilePathByIdUser(id)))
                 sr.WriteLine(JsonConvert.SerializeObject(user));
 

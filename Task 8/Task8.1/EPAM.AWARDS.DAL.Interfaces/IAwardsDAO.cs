@@ -13,8 +13,9 @@ namespace EPAM.AWARDS.DAL.Interfaces
 
         IEnumerable<Award> GetAwards(bool orderedById);
 
+        
 
-        User CreateUser(string name, DateTime dateOfBirth);
+        User CreateUser(string name, DateTime dateOfBirth,string passHash);
         User UpdateUser(User user);
         bool DeleteUser(int id);
         bool DeleteUser(User user);

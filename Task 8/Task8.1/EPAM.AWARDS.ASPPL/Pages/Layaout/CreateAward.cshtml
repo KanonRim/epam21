@@ -4,7 +4,7 @@
     if (IsPost)
     {
         string title = Request["title"];       
-        BaseModels.bll.CreateAward(title);
+        BaseModel.bll.CreateAward(title);
     }
     Response.Redirect("~/Index.cshtml");
 }

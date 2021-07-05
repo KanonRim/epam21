@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using EPAM.AWARDS.BLL.Interfaces;
 using EPAM.AWARDS.DAL.Interfaces;
 using EPAM.AWARDS.Entities;
-
+using EPAM.AWARDS.BLL;
 namespace EPAM.AWARDS.BLL
 {
     public class AwardsLogic : IAwardsBll
@@ -15,6 +16,8 @@ namespace EPAM.AWARDS.BLL
         {
             _dao = DAO;
         }
+
+
 
         public User AddAwardToUser(int idUser, int idAward)
         {
@@ -53,9 +56,15 @@ namespace EPAM.AWARDS.BLL
             return _dao.CreateAward(Award.Title);
         }
 
-        public User CreateUser(string name,DateTime DateOfBirth)
+        public User CreateUser(string name,DateTime DateOfBirth, string hashPassword)
         {
-            return _dao.CreateUser(name, DateOfBirth);
+            
+          
+            User user = FindUser(name);
+            if (user== null)
+                return _dao.CreateUser(name, DateOfBirth, hashPassword);
+            else
+                return user;
         }
         public User UpdateUser(User user)
         {
@@ -95,7 +104,12 @@ namespace EPAM.AWARDS.BLL
         {
             return _dao.GetUsers(true);
         }
-
+        public User FindUser(string username)
+        {
+            IEnumerable<User> users = GetUsers();
+            User user = users.FirstOrDefault(item => item.Name == username);
+            return user;
+        }
         public bool DeleteAward(int idAward)
         {
             Award award =  GetAward(idAward);

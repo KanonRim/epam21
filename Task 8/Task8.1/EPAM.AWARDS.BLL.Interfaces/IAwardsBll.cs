@@ -19,10 +19,10 @@ namespace EPAM.AWARDS.BLL.Interfaces
         IEnumerable<Award> GetAwards();
         bool DeleteAward(int idAward);
 
-        User CreateUser(string name,DateTime date);
+        User CreateUser(string name,DateTime date,string hasPass);
         User GetUser(int id);
         User UpdateUser(User user);
-
+        User FindUser(string name);
         IEnumerable<User> GetUsers();
         IEnumerable<Award> GetAwardsOfUser(int id);
 

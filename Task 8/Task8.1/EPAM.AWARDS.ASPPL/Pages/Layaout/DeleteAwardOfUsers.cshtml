@@ -8,7 +8,7 @@
     int idAward;
     if (int.TryParse(Request["idAward"], out idAward))
     {
-        BaseModels.bll.DeleteAward(idAward);
+        BaseModel.bll.DeleteAward(idAward);
         Response.Redirect("~/Index.cshtml");
     }
 }
