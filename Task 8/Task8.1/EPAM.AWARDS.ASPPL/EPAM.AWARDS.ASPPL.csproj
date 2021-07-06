@@ -111,7 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Index.cshtml" />
-    <Content Include="app.config" />
     <None Include="packages.config" />
     <Content Include="Pages\Layaout\_BasicLayout.cshtml" />
     <Content Include="Pages\Layaout\CreateUser.cshtml" />

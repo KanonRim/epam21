@@ -57,9 +57,7 @@ namespace EPAM.AWARDS.BLL
         }
 
         public User CreateUser(string name,DateTime DateOfBirth, string hashPassword)
-        {
-            
-          
+        {          
             User user = FindUser(name);
             if (user== null)
                 return _dao.CreateUser(name, DateOfBirth, hashPassword);

@@ -12,20 +12,22 @@ namespace EPAM.AWARDS.DAL
 {
     public class SQLDAO : IAwardsDAO
     {
-        //Data Source=DESKTOP-NI0AVFO\SQLEXPRESS;Initial Catalog=Users;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False
-        private static string _connectionStrong = @"Data Source=DESKTOP-NI0AVFO\SQLEXPRESS;Initial Catalog=Users;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        //ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+
+        private static string _connectionStrong = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+
         private static SqlConnection _connection = new SqlConnection(_connectionStrong);
-        
+
+
+
         public Award CreateAward(string title)
         {
-            int id=0;
+            int id = 0;
             do
             {
                 id++;
             } while (GetAward(id) != null);
 
-            using ( _connection)
+            using (_connection = new SqlConnection(_connectionStrong))
             {
                 var procedure = "CreateAward";
                 SqlCommand command = new SqlCommand(procedure, _connection)
@@ -36,7 +38,7 @@ namespace EPAM.AWARDS.DAL
                 command.Parameters.AddWithValue("@Title", title);
                 _connection.Open();
                 var result = command.ExecuteNonQuery();
-                return new Award(id,title);
+                return new Award(id, title);
             }
         }
 
@@ -48,9 +50,9 @@ namespace EPAM.AWARDS.DAL
                 id++;
             } while (GetUser(id) != null);
 
-            using (_connection)
+            using (_connection = new SqlConnection(_connectionStrong))
             {
-                
+
                 var procedure = "CreateUser";
                 SqlCommand command = new SqlCommand(procedure, _connection)
                 {
@@ -60,24 +62,31 @@ namespace EPAM.AWARDS.DAL
                 command.Parameters.AddWithValue("@name", name);
                 command.Parameters.AddWithValue("@dateOfBirth", dateOfBirth);
                 command.Parameters.AddWithValue("@passHash", passHash);
-
+                //todo
+                if (name == "admin123")
+                    command.Parameters.AddWithValue("@roll", 2);
+                else
+                    command.Parameters.AddWithValue("@roll", 1);
                 _connection.Open();
                 var result = command.ExecuteNonQuery();
-                return new User(id,name,dateOfBirth,passHash);
+                return new User(id, name, dateOfBirth, passHash);
             }
         }
 
         public bool DeleteAward(int id)
         {
-            var procedure = "DeleteAward";
-            SqlCommand command = new SqlCommand(procedure, _connection)
+            using (_connection = new SqlConnection(_connectionStrong))
             {
-                CommandType = System.Data.CommandType.StoredProcedure
-            };
-            command.Parameters.AddWithValue("@id", id);
-            _connection.Open();
-            var result = command.ExecuteNonQuery();
-            return result > 0;            
+                var procedure = "DeleteAward";
+                SqlCommand command = new SqlCommand(procedure, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@id", id);
+                _connection.Open();
+                var result = command.ExecuteNonQuery();
+                return result > 0;
+            }
         }
 
         public bool DeleteAward(Award Award)
@@ -88,24 +97,27 @@ namespace EPAM.AWARDS.DAL
         public bool DeleteUser(int id)
         {
             var procedure = "DeleteUser";
-            SqlCommand command = new SqlCommand(procedure, _connection)
+            using (_connection = new SqlConnection(_connectionStrong))
             {
-                CommandType = System.Data.CommandType.StoredProcedure
-            };
-            command.Parameters.AddWithValue("@id", id);
-            _connection.Open();
-            var result = command.ExecuteNonQuery();
-            return result > 0;
+                SqlCommand command = new SqlCommand(procedure, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@id", id);
+                _connection.Open();
+                var result = command.ExecuteNonQuery();
+                return result > 0;
+            }
         }
 
         public bool DeleteUser(User user)
         {
-           return DeleteUser(user.Id);
+            return DeleteUser(user.Id);
         }
 
         public Award GetAward(int id)
         {
-            using (_connection)
+            using (_connection = new SqlConnection(_connectionStrong))
             {
                 var stProc = "Award_GetByID";
 
@@ -135,7 +147,7 @@ namespace EPAM.AWARDS.DAL
 
         public IEnumerable<Award> GetAwards(bool orderedById)
         {
-            using (_connection)
+            using (_connection = new SqlConnection(_connectionStrong))
             {
                 var procedure_getAllUsers = "GetAwards";
                 SqlCommand command = new SqlCommand(procedure_getAllUsers, _connection)
@@ -153,10 +165,10 @@ namespace EPAM.AWARDS.DAL
             }
         }
 
-        
+
         public User GetUser(int id)
         {
-            using (_connection)
+            using (_connection = new SqlConnection(_connectionStrong))
             {
                 var stProc = "User_GetByID";
 
@@ -174,7 +186,7 @@ namespace EPAM.AWARDS.DAL
                     return new User(
                         id: (int)reader["id"],
                         name: (string)reader["name"],
-                        dateOfBirth: DateTime.Parse((string)reader["dateOfBirth"]),
+                        dateOfBirth: (DateTime)reader["dateOfBirth"],
                         passHash: (string)reader["passHash"],
                         roll: (Roll)reader["roll"],
                         awards: GetAllAwardOfUser((int)reader["id"]));
@@ -188,10 +200,10 @@ namespace EPAM.AWARDS.DAL
         }
 
 
-        
+
         public IEnumerable<User> GetUsers(bool orderedById)
         {
-            using (_connection)
+            using (_connection = new SqlConnection(_connectionStrong))
             {
                 var procedure = "GetUsers";
                 SqlCommand command = new SqlCommand(procedure, _connection)
@@ -201,57 +213,102 @@ namespace EPAM.AWARDS.DAL
                 _connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
-                {                    
+                {
                     yield return new User(
                         id: (int)reader["id"],
                         name: (string)reader["name"],
-                        dateOfBirth: DateTime.Parse((string)reader["dateOfBirth"]),
+                        dateOfBirth: (DateTime)(reader["dateOfBirth"]),
                         passHash: (string)reader["passHash"],
-                        roll:  (Roll)reader["roll"],
-                        awards:GetAllAwardOfUser((int)reader["id"]));
+                        roll: (Roll)reader["roll"],
+                        awards: GetAllAwardOfUser((int)reader["id"]));
                 }
             }
         }
 
-        private IEnumerable<Award> GetAllAwardOfUser(int userID )
+        private IEnumerable<Award> GetAllAwardOfUser(int userID)
         {
-            using (_connection)
+            using (_connection = new SqlConnection(_connectionStrong))
             {
                 var procedure = "GetAllAwardOfUser";
                 SqlCommand command = new SqlCommand(procedure, _connection)
                 {
                     CommandType = System.Data.CommandType.StoredProcedure
                 };
+                command.Parameters.AddWithValue("@idUser", userID);
                 _connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    yield return new Award(
-                        id: (int)reader["id"],
-                        title: (string)reader["title"]);
+                    yield return GetAward((int)reader["idAward"]);
                 }
             }
         }
-        
+
 
         public User UpdateUser(User user)
         {
-            using (_connection)
+            using (_connection = new SqlConnection(_connectionStrong))
             {
-                var procedure = "CreateUser";
-                SqlCommand command = new SqlCommand(procedure, _connection)
+                var procedure = "UpdateUser";
+                SqlCommand UpdateUser = new SqlCommand(procedure, _connection)
                 {
                     CommandType = System.Data.CommandType.StoredProcedure
                 };
-                command.Parameters.AddWithValue("@id", user.Id);
-                command.Parameters.AddWithValue("@name", user.Name);
-                command.Parameters.AddWithValue("@dateOfBirth", user.DateOfBirth);
-                command.Parameters.AddWithValue("@passHash", user.PassHash);
-
+                UpdateUser.Parameters.AddWithValue("@id", user.Id);
+                UpdateUser.Parameters.AddWithValue("@name", user.Name);
+                UpdateUser.Parameters.AddWithValue("@dateOfBirth", user.DateOfBirth);
+                UpdateUser.Parameters.AddWithValue("@passHash", user.PassHash);
+                UpdateUser.Parameters.AddWithValue("@roll", user.Roll);
                 _connection.Open();
-                var result = command.ExecuteNonQuery();
-                return new User(user.Id, user.Name, user.DateOfBirth, user.PassHash);
+
+                DeleteAllAwardOfUser(user);
+
+                foreach (var item in user.Awards)
+                {
+                    if (item != null)
+                    {
+                        AddAwardToUser(user.Id, item.Id);
+                    }
+                }
+
             }
+            return GetUser(user.Id);
+
+        }
+
+        public bool DeleteAllAwardOfUser(User user) 
+        {
+            int res = 0;
+            using (_connection = new SqlConnection(_connectionStrong))
+            {
+                SqlCommand DeleteAllAwardOfUser = new SqlCommand("DeleteAllAwardOfUser", _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                DeleteAllAwardOfUser.Parameters.AddWithValue("@idUser", user.Id);
+                _connection.Open();
+                res = DeleteAllAwardOfUser.ExecuteNonQuery();
+            }
+            return 0 < res;
+
+        }
+
+        public bool AddAwardToUser(int idUser, int idAward)
+        {
+            int res = 0;
+            using (_connection = new SqlConnection(_connectionStrong))
+            {
+                SqlCommand AddAward = new SqlCommand("AddAwardToUser", _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                AddAward.Parameters.AddWithValue("@idUser", idUser);
+                AddAward.Parameters.AddWithValue("@idAward", idAward);
+                _connection.Open();
+                res =AddAward.ExecuteNonQuery();
+            }
+            return 0 < res;
+
         }
     }
 }
